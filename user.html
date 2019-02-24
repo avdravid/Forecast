@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background-color: #89c4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        #msg {
+            color: white;
+            font-size: 40px;
+            text-align: center;
+            margin-top: 10px;
+            text-transform: uppercase;
+            font-family: "Montserrat";
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Forecast</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <form class="form-inline my-2 my-lg-0">
+                <input id='student' class="form-control mr-sm-2" type="text" placeholder="Student" aria-label="Student">
+                <input id='count' class="form-control mr-sm-2" type="number" placeholder="Count" aria-label="Count">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="button" onClick='changeStudent();'>Search</button>
+            </form>
+        </div>
+    </nav>
+    <div class='container-fluid'>
+        <div class='row'>
+            <div class='col-md'>
+                <p id='msg'></p>
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col-md'>
+                <img id='cloud' style='display: initial' class='img-fluid text-center' src="https://huskiehack-hackmedmalik.c9users.io/img/cloud-frontFacing_animated.svg"></img>
+
+                <img id="sun" style='display: none' class='img-fluid text-center' src="https://huskiehack-hackmedmalik.c9users.io/img/sun_animated.svg"></img>
+
+                <img id="tree" style='display: none' class='img-fluid text-center' src="https://huskiehack-hackmedmalik.c9users.io/img/tree_animated.svg"></img>
+
+                <img id="bird" style='display: none' class='img-fluid text-center' src="https://huskiehack-hackmedmalik.c9users.io/img/bird_animated.svg"></img>
+
+                <img id="sprout" style='display: none' class='img-fluid text-center' src="https://huskiehack-hackmedmalik.c9users.io/img/sprout_animated.svg"></img>
+
+                <img id="rightcloud" style='display: none' class='img-fluid text-center' src="https://huskiehack-hackmedmalik.c9users.io/img/cloud-rightFacing_animated.svg"></img>
+
+                <img id="topcloud" style='display: none' class='img-fluid text-center' src="https://huskiehack-hackmedmalik.c9users.io/img/cloud-topFacing_animated.svg"></img>
+
+                <img id="leftcloud" style='display: none' class='img-fluid text-center' src="https://huskiehack-hackmedmalik.c9users.io/img/cloud-leftFacing_animated.svg"></img>
+
+                <img id="moon" style='display: none' class='img-fluid text-center' src="https://huskiehack-hackmedmalik.c9users.io/img/moon_animated.svg"></img>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <script>
+        var cloud = document.getElementById("cloud");
+        var sun = document.getElementById("sun");
+        var tree = document.getElementById("tree");
+        var bird = document.getElementById("bird");
+        var sprout = document.getElementById("sprout");
+        var rightcloud = document.getElementById("rightcloud");
+        var topcloud = document.getElementById("topcloud");
+        var leftcloud = document.getElementById("leftcloud");
+        var moon = document.getElementById("moon");
+        var text = document.getElementById('msg');
+
+        var i = 0;
+
+        var number = 0;
+        var category = "General";
+
+        var user = 'friend';
+        var count = 0;
+
+        var always = function(user) { return "Hello, " + user + ", how are you doing today?"; };
+        var firstGeneral = function(user) { return "Feeling down, " + user + "? Try talking to a friend or family member"; };
+        var secondGeneral = function(user) { return "Hey " + user + ", I think you should let an adult know about how you feel. Maybe a counselor, coach, or a teacher?"; };
+        var thirdGeneral = function(user) { return "Hey " + user + ", I'm concerned about how you feel. I can get you in touch with someone at school"; };
+        var fourthGeneral = function(user) { return "Hey " + user + ", I want to help you. Please call this number: 1-800-273-8255"; };
+        var firstDrugs = function(user) { return "Hey " + user + ", I think you're using some bad stuff. If you need help, please talk to a friend or trusted adult"; };
+        var secondDrug = function(user) { return "Hey " + user + ", I'm worried about what you're consuming. I can get you in touch with someone who can help you."; };
+        var firstFamily = function(user) { return "Hey " + user + ", I've noticed that you've been angry with a family member(s). Try going for a walk, it can cool you down"; };
+        var secondFamily = function(user) { return "Hey " + user + ", you seem worried about your family. Talking to a trusted friend or adult can help."; };
+        var thirdFamily = function(user) { return "Hey " + user + ", is someone in your family hurting you? I think you should tell an adult."; };
+        var fourthFamily = function(user) { return "Hey " + user + ", I've noticed that you've been feeling uncomfortable. Let's talk to someone about that."; };
+        var firstSocial = function(user) { return "Hey " + user + ", are you feeling nervous? Try talking to a family friend"; };
+        var secondSocial = function(user) { return "Hey " + user + ", I've noticed that you're in a rocky relationship. Try talking about your problems with them"; };
+        var thirdSocial = function(user) { return "Hey " + user + ", are you down about someone? Let's talk about it with an adult."; };
+        var fourthSocial = function(user) { return "Hey " + user + ", you seem to be bothered by someone. Let's talk to a couneslor about that."; };
+        var firstSuicidal = function(user) { return "Hey " + user + ", is something bothering you? Try listening to music, going for a walk, or talking to someone"; };
+        var secondSuicidal = function(user) { return "Hey " + user + ", you seem down. Should we try talking to an adult, like a counselor, coach, or teacher?"; };
+        var thirdSuicidal = function(user) { return "Hey " + user + ", I'm worried about you. Let's get in touch with a trusted adult so you can feel better."; };
+        var fourthSuicidal = function(user) { return "Hey " + user + ", I want to help you. Please call this number: 1-800-273-8255 "; };
+
+        var msg = always(user);
+
+        function changeStudent() {
+            user = $("#student").val();
+            count = $('#count').val();
+            i = 0;
+            $.ajax({
+                    type: 'POST',
+                    url: 'https://huskiehack-hackmedmalik.c9users.io/cgi-bin/master.py',
+                    data: { user: user, count: count }
+                })
+                .done(function(data) {
+                    data = JSON.parse(data);
+                    number = data["number"];
+                    category = data["category"];
+                    text.innerHTML = '';
+                    typing();
+                })
+                .fail(function(data) {
+                    alert("There was an error!");
+                    console.log(data);
+                });
+        }
+
+        function typing() {
+            changeBackground(category, number, user);
+            if (i < msg.length) {
+                text.innerHTML += msg.charAt(i);
+                i++;
+                setTimeout(typing, 90);
+            }
+
+        }
+
+        function changeBackground(category, number, user) {
+            if (category == "General" && number < 51) {
+                hideAllBut("sun");
+                msg = firstGeneral(user);
+
+            }
+            else if (category == "General" && number > 51 && number < 150) {
+                hideAllBut("tree");
+                msg = secondGeneral(user);
+
+            }
+            else if (category == "General" && number > 151 && number < 500) {
+                hideAllBut("leftcloud");
+                msg = thirdGeneral(user);
+
+            }
+            else if (category == "General" && number > 500) {
+                hideAllBut("bird");
+                msg = fourthGeneral(user);
+            }
+            else if (category == "Drugs" && number < 51) {
+                hideAllBut("sprout");
+                msg = firstDrugs(user);
+            }
+            else if (category == "Drugs" && number > 51 && number < 151) {
+                hideAllBut("topcloud");
+                msg = secondDrug(user);
+            }
+            else if (category == "Family" && number < 51) {
+                hideAllBut("rightcloud");
+                msg = firstFamily(user);
+            }
+            else if (category == "Family" && number > 51 && number < 151) {
+                hideAllBut("moon");
+                msg = secondFamily(user);
+            }
+            else if (category == "Family" && number > 151 && number < 500) {
+                hideAllBut("sun");
+                msg = thirdFamily(user);
+            }
+            else if (category == "Family" && number > 500) {
+                hideAllBut("tree");
+                msg = fourthFamily(user);
+            }
+            else if (category == "Social" && number < 51) {
+                hideAllBut("leftcloud");
+                msg = firstSocial(user);
+            }
+            else if (category == "Social" && number > 51 && number < 151) {
+                hideAllBut("bird");
+                msg = secondSocial(user);
+            }
+            else if (category == "Social" && number > 151 && number < 500) {
+                hideAllBut("sprout");
+                msg = thirdSocial(user);
+            }
+            else if (category == "Social" && number > 500) {
+                hideAllBut("topcloud");
+                msg = fourthSocial(user);
+            }
+            else if (category == "Suicidal" && number < 51) {
+                hideAllBut("rightcloud");
+                msg = firstSuicidal(user);
+            }
+            else if (category == "Suicidal" && number > 51 && number < 151) {
+                hideAllBut("mooon");
+                msg = secondSuicidal(user);
+            }
+            else if (category == "Suicidal" && number > 151 && number < 500) {
+                hideAllBut("sun");
+                msg = thirdSuicidal(user);
+            }
+            else if (category == "Suicidal" && number > 500) {
+                hideAllBut("sun");
+                msg = fourthSuicidal(user);
+            }
+        }
+
+        function hideAllBut(category) {
+            if (category == 'cloud') {
+                cloud.setAttribute("style", "display: initial");
+                sun.setAttribute("style", "display: none");
+                tree.setAttribute("style", "display: none");
+                bird.setAttribute("style", "display: none");
+                sprout.setAttribute("style", "display: none");
+                rightcloud.setAttribute("style", "display: none");
+                topcloud.setAttribute("style", "display: none");
+                leftcloud.setAttribute("style", "display: none");
+                moon.setAttribute("style", "display: none");
+            }
+            else if (category == 'sun') {
+                cloud.setAttribute("style", "display: none");
+                sun.setAttribute("style", "display: initial");
+                tree.setAttribute("style", "display: none");
+                bird.setAttribute("style", "display: none");
+                sprout.setAttribute("style", "display: none");
+                rightcloud.setAttribute("style", "display: none");
+                topcloud.setAttribute("style", "display: none");
+                leftcloud.setAttribute("style", "display: none");
+                moon.setAttribute("style", "display: none");
+            }
+            else if (category == 'tree') {
+                cloud.setAttribute("style", "display: none");
+                sun.setAttribute("style", "display: none");
+                tree.setAttribute("style", "display: initial");
+                bird.setAttribute("style", "display: none");
+                sprout.setAttribute("style", "display: none");
+                rightcloud.setAttribute("style", "display: none");
+                topcloud.setAttribute("style", "display: none");
+                leftcloud.setAttribute("style", "display: none");
+                moon.setAttribute("style", "display: none");
+            }
+            else if (category == 'bird') {
+                cloud.setAttribute("style", "display: none");
+                sun.setAttribute("style", "display: none");
+                tree.setAttribute("style", "display: none");
+                bird.setAttribute("style", "display: initial");
+                sprout.setAttribute("style", "display: none");
+                rightcloud.setAttribute("style", "display: none");
+                topcloud.setAttribute("style", "display: none");
+                leftcloud.setAttribute("style", "display: none");
+                moon.setAttribute("style", "display: none");
+            }
+            else if (category == 'sprout') {
+                cloud.setAttribute("style", "display: none");
+                sun.setAttribute("style", "display: none");
+                tree.setAttribute("style", "display: none");
+                bird.setAttribute("style", "display: none");
+                sprout.setAttribute("style", "display: initial");
+                rightcloud.setAttribute("style", "display: none");
+                topcloud.setAttribute("style", "display: none");
+                leftcloud.setAttribute("style", "display: none");
+                moon.setAttribute("style", "display: none");
+            }
+            else if (category == 'rightcloud') {
+                cloud.setAttribute("style", "display: none");
+                sun.setAttribute("style", "display: none");
+                tree.setAttribute("style", "display: none");
+                bird.setAttribute("style", "display: none");
+                sprout.setAttribute("style", "display: none");
+                rightcloud.setAttribute("style", "display: initial");
+                topcloud.setAttribute("style", "display: none");
+                leftcloud.setAttribute("style", "display: none");
+                moon.setAttribute("style", "display: none");
+            }
+            else if (category == 'topcloud') {
+                cloud.setAttribute("style", "display: none");
+                sun.setAttribute("style", "display: none");
+                tree.setAttribute("style", "display: none");
+                bird.setAttribute("style", "display: none");
+                sprout.setAttribute("style", "display: none");
+                rightcloud.setAttribute("style", "display: none");
+                topcloud.setAttribute("style", "display: initial");
+                leftcloud.setAttribute("style", "display: none");
+                moon.setAttribute("style", "display: none");
+            }
+            else if (category == 'leftcloud') {
+                cloud.setAttribute("style", "display: none");
+                sun.setAttribute("style", "display: none");
+                tree.setAttribute("style", "display: none");
+                bird.setAttribute("style", "display: none");
+                sprout.setAttribute("style", "display: none");
+                rightcloud.setAttribute("style", "display: none");
+                topcloud.setAttribute("style", "display: none");
+                leftcloud.setAttribute("style", "display: initial");
+                moon.setAttribute("style", "display: none");
+            }
+            else {
+                cloud.setAttribute("style", "display: none");
+                sun.setAttribute("style", "display: none");
+                tree.setAttribute("style", "display: none");
+                bird.setAttribute("style", "display: none");
+                sprout.setAttribute("style", "display: none");
+                rightcloud.setAttribute("style", "display: none");
+                topcloud.setAttribute("style", "display: none");
+                leftcloud.setAttribute("style", "display: none");
+                moon.setAttribute("style", "display: initial");
+            }
+        }
+    </script>
+</body>
+
+</html>

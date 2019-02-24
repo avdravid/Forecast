@@ -1,0 +1,108 @@
+{
+	"general": [
+                "stressed",
+                "sad",
+                "feeling depressed",
+                "my life no purpose",
+                "violence",
+                "self-harm",
+                "I am stressed",
+                "purposeless",
+                "meaningless",
+                "life sucks",
+                "point in life",
+                "i'm sad",
+                "i'm depressed",
+                "it's over",
+                "depression",
+                "cut myself",
+                "fail"
+                ],
+				
+			"academic": [
+					"hate homework",
+					"hate school",
+					"feels like burden",
+					"shoot up school",
+					"no motivation"],
+					
+			"financial": ["no money",
+                   "i am broke",
+                   "bankrupt",
+                   "poverty",
+                   "poor",
+                   "afford food"],
+				   
+			"drugs": ["do drugs",
+                "vape",
+                "cigarettes",
+                "smoke",
+                "drink alcohol",
+                "smoke weed",
+                "cocaine"],
+				
+			"family": ["personal problems",
+                "family hates me",
+                "family problems"],
+				
+			"social": ["lgbtq",
+                "trans",
+                "bullying",
+                "why me?",
+                "screw them",
+                "broke up",
+                "rape",
+                "raped me",
+                "harass",
+                "sexual assault"],
+				
+			"suicidal": ["hate life",
+                "want die",
+                "want kill myself",
+                "someone kill me",
+                "kms",
+                "suicide",
+                "shoot me",
+                "shoot up",
+                "gun",
+                "death",
+                "hang myself",
+                "gun suicide",
+                "shoot myself",
+                "end my life",
+                "jump out window",
+                "end myself",
+                "impale myself",
+                "kill me"],
+                
+        "guns": [
+        "handgun",
+        "gun",
+        "shotgun",
+        "assault rifle",
+        "knife",
+        "rope",
+        "poison"
+        ],
+        
+        "dates": [
+        "today",
+        "now",
+        "tomorrow",
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday",
+        "sunday",
+        "soon",
+        "next week"
+        ], 
+        
+        "revenge": [
+        "revenge",
+        "payback",
+        "suffer"
+        ]
+}

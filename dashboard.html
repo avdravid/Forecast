@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <title>Admin - Dashboard</title>
+    <style type="text/css">
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+</head>
+
+<body>
+<style>
+#myChart{
+    margin:0 auto;
+}
+#filterDiv{
+    margin: 5px;
+    padding: 5px;
+}
+</style>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="https://huskiehack-hackmedmalik.c9users.io">Forecast</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    	<span class="navbar-toggler-icon"></span>
+  		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<a class="nav-link active" href="#">Dashboard <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="https://huskiehack-hackmedmalik.c9users.io/cgi-bin/site.py?site=search">Student</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="https://huskiehack-hackmedmalik.c9users.io/cgi-bin/site.py?site=settings">Settings</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+    
+    <div id="filterDiv" class="form-group">
+						<label for="filter">Student Population Breakdown</label>
+						<select name="filter" class="form-control" id="filter">
+					      <option value = "no">Select one</option>
+					      <option value = "grade">Breakdown by grade</option>
+					      <option value = "sex">Breakdown by sex</option>
+					      <option value = "gpa">Breakdown by GPA</option>
+				    	</select>
+					</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
+    <canvas id="myChart" width="800" height="500"></canvas>
+    <script>
+        var ctx = document.getElementById("myChart").getContext('2d');
+        $("#filter").change(function() {
+		  var val = $("#filter").val();
+		  if(val == "grade"){
+		  	updateGraphs(1);
+		  }
+		  else if(val == "sex"){
+		  		updateGraphs(2);
+		  }
+		  else if(val == "gpa"){
+		 	updateGraphs(3);
+		  }
+		});
+		
+		function updateGraphs(text){
+        if(text == 1){
+         var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [7, 8, 9, 10, 11, 12],
+                datasets: [{
+                    label: 'Depression Rates for Grade Levels',
+                    data: [10, 12, 11, 11, 13, 17],
+                    backgroundColor: [
+                        'rgba(50, 50, 130, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(50, 50, 130,1)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                  responsive: false,
+                scales: {
+                    yAxes: [{
+                        scaleLabel: {
+            display: true,
+            labelString: 'Percent'
+          },
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }],
+                    xAxes: [{
+                          scaleLabel: {
+            display: true,
+            labelString: 'Grade'
+          },
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+        }
+        
+        else if(text == 2){
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Female", "Male"],
+                datasets: [{
+                    label: '% Depression Among Genders',
+                    data: [13, 16],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.4)',
+                        'rgba(54, 162, 235, 0.4)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: false,
+                scales: {
+                    yAxes: [{
+                         scaleLabel: {
+            display: true,
+            labelString: 'Percent'
+          },
+                        ticks: {
+                            beginAtZero: true,
+                            suggestedMin: 0, 
+							suggestedMax: 40
+                        }
+                    }]
+                }
+            }
+        });
+        }
+         else if(text == 3){
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [0, 1, 2, 2.5, 3, 3.5, 4.0],
+                datasets: [{
+                    label: 'Depression Rates for GPA Levels',
+                    data: [3, 5, 7, 8, 10, 13, 15],
+                    backgroundColor: [
+                        'rgba(150, 200, 132, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(50,150,70,1)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                  responsive: false,
+                scales: {
+                    yAxes: [{
+                         scaleLabel: {
+            display: true,
+            labelString: 'Percent'
+          },
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }],
+                    xAxes: [{
+                         scaleLabel: {
+            display: true,
+            labelString: 'GPA'
+          },
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+        }}
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>
